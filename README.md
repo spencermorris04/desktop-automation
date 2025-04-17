@@ -93,58 +93,60 @@ Tab activation also brings the Chrome window to the foreground, even with multip
 ## Features in Detail
 
 ### Option 1 – Notepad Automation
-- **Open or reuse** Notepad via UI Automation (ValuePattern) or fallback to SendKeys.  
+- **Open or reuse** Notepad via UI Automation (`ValuePattern`) or fallback to SendKeys.  
 - **Append**, **overwrite**, or **read** the text in the active Notepad window.  
-- Ideal for quick prototyping of text‑entry workflows without manual GUI scripting.
+- Ideal for scripting quick text‐entry workflows without manual UI navigation.
 
-### Option 2 – Excel Helper
-- **Stub** implementation in this demo.  
-- Intended to wrap **NetOffice.ExcelApi** for CSV → .xlsx import.  
-- Prompts for sheet name and writes a 2D array, autofits columns.
+### Option 2 – Task Manager
+- **Background sampler** thread polls WMI’s `Win32_PerfFormattedData_PerfProc_Process` every second.  
+- **Cache** of CPU (%) and RAM (MB) usage for all processes.  
+- CLI commands:
+  1. **List** top 20 processes sorted by CPU then RAM.  
+  2. **Terminate** a process by PID.
 
-### Option 3 – Chrome Tabs
-- **List**, **activate**, **open** and **close** Chrome tabs via a local HTTP bridge.  
-- Menu commands:
-  - `[number]` – activate that tab (inside Chrome + OS foreground).  
-  - `o <url>` – open a new tab at `<url>` and focus its Chrome window.  
-  - `c <number>` – close the specified tab.  
-  - `q` – return to main menu.  
-- Works with **multiple Chrome windows** by matching Chrome’s own `windowId` to the OS window.
+### Option 3 – Audio Manager
+- Enumerate playback devices via **NAudio.CoreAudioApi**, mark the default.  
+- **Set** default playback device without restarting audio graph.  
+- **Get/set** master volume (0–100 %).  
+- **Play/Pause** media key via `SendInput`.
 
-### Option 4 – Open Downloads Folder
-- Launches File Explorer in the **Downloads** directory under your user profile.  
-- Uses `ProcessStartInfo { UseShellExecute = true }` for native association.
+### Option 4 – File Explorer (Downloads)
+- **List** the 10 most recent files in your Downloads folder.  
+- **Fuzzy‐search** downloads by name (`FuzzySharp.WeightedRatio`).  
+- **Open** selected file with its associated program.
 
-### Option 5 – Search & Open Folder
-- Recursively indexes `%USERPROFILE%`, Desktop, Documents, and Downloads.  
-- Caches the index for **60 minutes** (`_ttl`).  
-- Uses **FuzzySharp** (`WeightedRatio`) on folder names for quick filtering.  
-- Opens the selected folder via `explorer.exe`.
+### Option 5 – Excel CSV Importer
+- **Paste** CSV lines into the console, end input with `ENDCSV`.  
+- **Prompt** for worksheet name (create new .xlsx or reuse existing).  
+- **Write** the 2D array, autofit columns, optionally save & reopen.  
+- Uses **NetOffice.ExcelApi**—no COM Interop reference required.
 
 ### Option 6 – Switch / Focus Window
-- Fuzzy‑search open windows by **process name + title**.  
-- Restores minimized windows and brings the target to the **true foreground**, working around Win32 focus‑lock rules:
-  - Attaches thread inputs,  
-  - Uses `SetForegroundWindow`,  
-  - Falls back to `SwitchToThisWindow` or simulated Alt‑key.
+- **Fuzzy‐search** all top‑level windows by process name + window title.  
+- **Restore** minimized windows and bring the target to the true foreground.  
+- Works around Windows focus‑lock via `AttachThreadInput`, `SwitchToThisWindow`, and simulated Alt‑key tricks.
 
 ### Option 7 – Apply Window Layout
-- Predefined layouts:
-  - **coding**: VS Code on left 50%; Notepad + Terminal on right half (split top/bottom).  
-  - **research**: Chrome | Obsidian side‑by‑side.  
-- Prompts once per application instance, then tiles **all** windows in one pass.  
+- Predefined layouts under Menu #7:
+  - **coding**: VS Code on left 50%; Notepad + Terminal stacked on the right.  
+  - **research**: Chrome and Obsidian side‑by‑side.  
+- Prompts once per application instance, then **tiles all windows** in one pass.  
 - Respects the task‑bar working area and compensates for window frames.
 
-### Option 8 – Task Manager
-- Background sampler thread polls WMI’s `Win32_PerfFormattedData_PerfProc_Process` every second.  
-- **List** top 20 processes by CPU (%) and RAM (MB).  
-- **Terminate** a process by PID.
+### Option 8 – Search & Open Folder
+- **Recursively index** `%USERPROFILE%`, Desktop, Documents, and Downloads.  
+- **Cache** index for 60 minutes for instant lookups.  
+- **Fuzzy‐search** folder names and open the chosen folder in Explorer.  
+- Set `FOLDER_SEARCH_VERBOSE=1` to log sample paths during indexing.
 
-### Option 9 – Audio Mute / Unmute
-- Enumerate playback endpoints via **NAudio.CoreAudioApi**.  
-- Get or set the **default** playback device.  
-- Read or adjust **master volume** (0–100 %).  
-- Send the **Play/Pause** multimedia key via `SendInput`.
+### Option 9 – Chrome Tabs
+- **List**, **activate**, **open**, and **close** Chrome tabs via a lightweight local bridge.  
+- CLI commands:
+  - **`[number]`**: activate that tab (inside Chrome + OS foreground).  
+  - **`o <url>`**: open a new tab at `<url>` and raise its Chrome window.  
+  - **`c <number>`**: close the specified tab.  
+  - **`q`**: return to the main menu.  
+- **Reliable focus** of the correct Chrome window even when multiple windows are open—matches on Chrome’s own `windowId`.
 
 ---
 

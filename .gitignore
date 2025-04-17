@@ -1,0 +1,72 @@
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider settings
+.idea/
+
+# VS Code settings
+.vscode/
+
+# Build logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.ncb
+*.cache
+*.dbmdl
+
+# Windows crash dumps
+*.dmp
+
+# Excel temp files
+~$*.xlsx
+*.lock
+
+# System files
+Thumbs.db
+Desktop.ini
+
+# Local NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# MacOS files (if synced)
+.DS_Store
+
+# Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.deps.json
+*.runtimeconfig.dev.json
+*.runtimeconfig.json
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Resharper / JetBrains Rider
+_ReSharper*/
+*.DotSettings.user
+*.ReSharper.user
+
+# ASP.NET dev certs
+*.pfx
+*.p12
+
+# Environment secrets
+.env
+.env.*
+secrets.json

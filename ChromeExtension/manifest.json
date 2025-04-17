@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "Desktop Automator Bridge",
+    "description": "Bidirectional bridge between DesktopAutomator and Chrome.",
+    "version": "0.2.0",
+    "permissions": ["tabs", "alarms"],
+    "host_permissions": ["http://127.0.0.1:9234/*"],
+    "background": { "service_worker": "background.js", "type": "module" },
+    "action": { "default_title": "Automator Bridge – status" }
+  }
+  
